@@ -1,0 +1,125 @@
+package com.company;
+
+import com.company.ArrayList;
+
+public class ArrayListTest {
+
+    public static void main(String[] args) {
+	ArrayList list = new ArrayList();
+        try {
+            list.add("Water");
+            list.add("Pencil");
+            list.add("Money");
+            list.add("Pen");
+            list.add("Book");
+            list.add("Mirror");
+            list.add("Apple");
+            list.add("Lipstick");
+            list.add("Lipstick");
+            list.add("Pear");
+            list.add("Water");
+            list.add("Pencil");
+            list.add("Pen");
+            list.add("Book");
+            list.add("Mirror");
+            list.add("Apple");
+            list.add("Lipstick");
+            list.add("Lipstick");
+            list.add("Pear");
+        } catch (FunnyException e) {
+            e.printStackTrace();
+        }
+
+        if (list.contains("Apple")) {
+            System.out.println("Apple in the bag");
+        } else {
+            System.out.println("Can't find this item");
+        }
+        if (list.contains("Phone")) {
+            System.out.println("Phone in the bag");
+        } else {
+            System.out.println("Can't find this item");
+        }
+        list.print();
+    }
+}
+
+
+package com.company;
+
+public class FunnyException extends Exception {
+    @Override
+    public String getMessage() {
+return ("Erroooor");
+    }
+}
+
+package com.company;
+
+public interface ICollection {
+    int size();
+    void add(String item) throws FunnyException;
+    boolean contains(String s);
+}
+
+
+package com.company;
+
+public class ArrayList implements ICollection {
+    private String[] arr;
+    private int size;
+
+    public ArrayList() {
+        arr = new String[10];
+    }
+
+    public ArrayList(int length) {
+        arr = new String[length];
+    }
+
+    public void add(String item) throws FunnyException {
+        if (item == null)
+            return;
+
+        if (size >= arr.length) {
+            resize ();
+        }
+        arr[size] = item;
+        size++;
+
+    }
+
+    private void resize() throws FunnyException {
+        String[] temp = new String[arr.length * 3/2 + 1];
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+            throw new FunnyException();
+        }
+        arr = temp;
+    }
+
+    public boolean contains(String s) {
+        if (s == null) {
+            return false;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (s.equals(arr[i])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void print() {
+        for (int i = 0; i < size; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+
+    public int size() {
+        return size;
+    }
+}
+
